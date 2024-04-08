@@ -73,7 +73,7 @@
       1 3
       2 4)))
 
-(deftest ^:kaocha/pending conditions-apply-test
+(deftest ^:implemented conditions-apply-test
   (testing ":wonder-woman when 1 and 3 in order"
     (is (= :wonder-woman (c/conditions-apply [1 3])))
     (is (= :wonder-woman (c/conditions-apply [1 2 3])))

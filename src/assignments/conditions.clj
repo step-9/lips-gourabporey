@@ -53,6 +53,13 @@
     (> x y) :greece
     :else :universe))
 
+(defn todo [message] (println "** TODO:" message "\n"))
+
+(todo "Find other way to solve match-occurance")
+(defn match-occurance-with-sequence
+  [seq-to-match coll]
+  (= seq-to-match (filter (set seq-to-match) coll)))
+
 (defn conditions-apply
   "Given a collection of any length, returns:
   :wonder-woman if collection has a single occurrence of 1 and 3 in that order
@@ -62,7 +69,12 @@
   {:level      :medium
    :use        '[condp filter]
    :alternates '[if cond]}
-  [coll])
+  [coll]
+  (condp match-occurance-with-sequence coll
+    [1 3] :wonder-woman
+    [:a :b :c] :durga
+    [[2 3] [4 5]] :cleopatra
+    :tuntun))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate
