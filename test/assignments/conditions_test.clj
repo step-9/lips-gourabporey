@@ -140,7 +140,7 @@
       [0 1 2 3 0 1 2 3] 8
       [0 1 2 3 0 1 2 3] 9)))
 
-(deftest ^:kaocha/pending order-in-words-test
+(deftest ^:implemented order-in-words-test
   (testing "order in words"
     (are [x y] (= x (apply c/order-in-words y))
       [:x-greater-than-y] [4 2 3]
@@ -150,7 +150,7 @@
       [:y-greater-than-z :z-greater-than-x] [2 4 3]
       [:x-greater-than-y :z-greater-than-x] [3 2 4])))
 
-(deftest ^:kaocha/pending zero-aliases-test
+(deftest ^:implemented zero-aliases-test
   (testing "zero like values return keywords"
     (are [x y] (= x (c/zero-aliases y))
       :zero         0
