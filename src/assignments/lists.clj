@@ -9,6 +9,14 @@
    :dont-use     '[map]}
   [f & colls])
 
+(defn selective-join
+  "Push an element to a vector when the predicate is true, 
+   else return the vector"
+  [pred elem coll]
+  (if (pred elem) 
+    (conj coll elem) 
+    coll))
+
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
   predicate function and a collection. The output
@@ -16,7 +24,12 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[filter]}
-  [pred coll])
+  [pred coll]
+  (loop [filtered []
+         remaining coll]
+    (if-let [elem (first remaining)]
+      (recur (selective-join pred elem filtered) (rest remaining))
+      filtered)))
 
 (defn reduce'
   "Implement your own multi-arity version of reduce
@@ -34,7 +47,8 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[count]}
-  [coll])
+  [coll]
+  ())
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
