@@ -85,7 +85,7 @@
    :use   '[cond->> concat take]}
   [coll rep? truncate? n]
   (cond->> coll
-    rep? (comp (partial apply concat) repeat)
+    rep? (concat coll)
     truncate? (take n)))
 
 (defn order-in-words
