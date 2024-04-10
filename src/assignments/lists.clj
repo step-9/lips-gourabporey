@@ -48,7 +48,11 @@
    :use          '[loop recur]
    :dont-use     '[count]}
   [coll]
-  ())
+  (loop [len 0
+         remaining coll]
+    (if (zero? (count remaining))
+      len
+      (recur (inc len) (rest remaining)))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
