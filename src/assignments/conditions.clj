@@ -53,9 +53,6 @@
     (> x y) :greece
     :else :universe))
 
-(defn todo [message] (println "** TODO:" message "\n"))
-
-(todo "Find other way to solve match-occurance")
 (defn match-occurance-with-sequence
   [seq-to-match coll]
   (= seq-to-match (filter (set seq-to-match) coll)))

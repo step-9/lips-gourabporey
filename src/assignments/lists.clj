@@ -1,4 +1,6 @@
-(ns assignments.lists)
+(ns assignments.lists
+  (:require
+   [utils :refer [get-todos]]))
 
 (defn map'
   "Implement a non-lazy version of map that accepts a
@@ -13,8 +15,8 @@
   "Push an element to a vector when the predicate is true, 
    else return the vector"
   [pred elem coll]
-  (if (pred elem) 
-    (conj coll elem) 
+  (if (pred elem)
+    (conj coll elem)
     coll))
 
 (defn filter'
@@ -59,8 +61,17 @@
   Returns nil if coll provided is not a sequence"
   {:level        :easy
    :use          '[reduce conj seqable? when]
-   :dont-use     '[reverse]}
-  [coll])
+   :dont-use     '[reverse]
+   :todo         "Think about something more idiomatic than if"}
+  [coll]
+  (when (coll? coll)
+    (loop [reversed '()
+           remaining coll]
+      (if (empty? remaining)
+        reversed
+        (recur
+         (conj reversed (first remaining))
+         (rest remaining))))))
 
 (defn every?'
   "Implement your own version of every? that checks if every
@@ -268,3 +279,5 @@
    :use   '[iterate take-while]
    :alternates '[(implement your own take-until)]}
   [n])
+
+(get-todos)
