@@ -69,7 +69,17 @@
   {:level        :easy
    :use          '[loop recur and]
    :dont-use     '[every?]}
-  [pred coll])
+  [pred coll]
+  #_(loop [[fst & more :as coll] coll]
+      (cond
+        (empty? coll) true
+        (pred fst) (and true (recur more))
+        :else false))
+  (loop [[fst & more :as coll] coll]
+    (if (empty? coll)
+      true
+      (and (pred fst)
+           (recur more)))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
