@@ -11,14 +11,6 @@
    :dont-use     '[map]}
   [f & colls])
 
-(defn selective-join
-  "Push an element to a vector when the predicate is true, 
-   else return the vector"
-  [pred elem coll]
-  (if (pred elem)
-    (conj coll elem)
-    coll))
-
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
   predicate function and a collection. The output
@@ -27,11 +19,15 @@
    :use          '[loop recur]
    :dont-use     '[filter]}
   [pred coll]
-  (loop [filtered []
-         remaining coll]
-    (if-let [elem (first remaining)]
-      (recur (selective-join pred elem filtered) (rest remaining))
-      filtered)))
+  (loop [selected-elems []
+         coll coll]
+    (if-let [elem (first coll)]
+      (recur
+       (if (pred elem)
+         (conj selected-elems elem)
+         selected-elems)
+       (rest coll))
+      selected-elems)))
 
 (defn reduce'
   "Implement your own multi-arity version of reduce
@@ -51,27 +47,21 @@
    :dont-use     '[count]}
   [coll]
   (loop [len 0
-         remaining coll]
-    (if (zero? (count remaining))
+         coll coll]
+    (if (empty? coll)
       len
-      (recur (inc len) (rest remaining)))))
+      (recur (inc len) (rest coll)))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
   Returns nil if coll provided is not a sequence"
   {:level        :easy
    :use          '[reduce conj seqable? when]
-   :dont-use     '[reverse]
-   :todo         "Think about something more idiomatic than if"}
+   :dont-use     '[reverse]}
   [coll]
-  (when (coll? coll)
-    (loop [reversed '()
-           remaining coll]
-      (if (empty? remaining)
-        reversed
-        (recur
-         (conj reversed (first remaining))
-         (rest remaining))))))
+  (when (seqable? coll)
+    (->> coll
+         (reduce #(conj %1 %2) '()))))
 
 (defn every?'
   "Implement your own version of every? that checks if every
