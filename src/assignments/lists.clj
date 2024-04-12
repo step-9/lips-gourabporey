@@ -17,7 +17,8 @@
   should be consistent with clojure.core/filter"
   {:level        :easy
    :use          '[loop recur]
-   :dont-use     '[filter]}
+   :dont-use     '[filter]
+   :todo         "Refactor nested ifs"}
   [pred coll]
   (loop [selected-elems []
          coll coll]
@@ -122,7 +123,8 @@
   {:level        :medium
    :use          '[map + rest]
    :dont-use     '[loop recur partition]}
-  [coll])
+  [coll]
+  (map + coll (rest coll)))
 
 (defn max-three-digit-sequence
   "Given a collection of numbers, find a three digit sequence that
