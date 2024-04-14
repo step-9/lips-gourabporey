@@ -145,7 +145,7 @@
   [[a b] [c d]] => [[a c] [b d]].
   Note this is a def. Not a defn.
   Return a vector of vectors, not list of vectors or vectors of lists"
-  (constantly nil))
+  (partial apply map list))
 
 (defn difference
   "Given two collections, returns only the elements that are present
