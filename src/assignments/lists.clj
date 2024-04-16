@@ -270,6 +270,22 @@
    :use   '[keep-indexed]}
   [pred coll])
 
+(defn collatz-fn
+  [n]
+  (if (even? n)
+    (/ n 2)
+    (+ 1 (* 3 n))))
+
+(defn take-until
+  {:todo "Simplify the loop recur"}
+  [pred coll]
+  (loop [selected-items []
+         [first & other-elems :as coll] coll]
+    (cond
+      (empty? coll) selected-items
+      (pred first) (concat selected-items [first])
+      :else (recur (concat selected-items [first]) other-elems))))
+
 (defn collatz-sequence
   "Returns the collatz sequence for n.
    The collatz function takes a number n and returns:
@@ -281,6 +297,7 @@
   {:level :easy
    :use   '[iterate take-while]
    :alternates '[(implement your own take-until)]}
-  [n])
+  [n]
+  (take-until #(= % 1) (iterate collatz-fn n)))
 
 (get-todos)
