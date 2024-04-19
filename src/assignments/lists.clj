@@ -250,7 +250,13 @@
   {:level        :easy
    :use          '[loop recur rest]
    :dont-use     '[.indexOf memfn]}
-  [coll n])
+  [coll n]
+  (loop [index 0
+         [fst & coll] coll]
+    (cond
+      (= n fst) index
+      (nil? coll) -1
+      :else (recur (inc index) coll))))
 
 (defn validate-sudoku-grid
   "Given a 9 by 9 sudoku grid, validate it."
@@ -262,7 +268,10 @@
   {:level :easy
    :use   '[map max rest]
    :alternates '[repeat partition]}
-  [coll])
+  [coll]
+  (if (<= (count coll) 1)
+    coll
+    (map max (rest coll) coll)))
 
 (defn filter-by-index
   "Returns elements of coll at even indices"

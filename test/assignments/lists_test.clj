@@ -52,7 +52,7 @@
   (testing "false condition"
     (is (false? (ascending? [1 2 3 2 1 0])))))
 
-(deftest ^:kaocha/pending index-of-test
+(deftest ^:implemented index-of-test
   (testing "element present in collection"
     (is (= 4 (index-of [1 2 3 4 5 6] 5))))
   (testing "element not-present in collection"
@@ -128,7 +128,7 @@
       [4 5 6] (max-three-digit-sequence [1 2 4 5 6])
       [5 2 4] (max-three-digit-sequence [1 3 5 2 4 1]))))
 
-(deftest ^:kaocha/pending max-of-pairs-test
+(deftest ^:implemented max-of-pairs-test
   (testing "max of pairs with 0 elements"
     (is (= [] (max-of-pairs []))))
   (testing "max of pairs with 1 element"
