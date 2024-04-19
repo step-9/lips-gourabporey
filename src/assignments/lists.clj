@@ -268,7 +268,8 @@
   "Returns elements of coll at even indices"
   {:level :easy
    :use   '[keep-indexed]}
-  [pred coll])
+  [pred coll]
+  (keep-indexed #(when (pred %1) %2) coll))
 
 (defn collatz-fn
   [n]
